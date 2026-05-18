@@ -14,7 +14,7 @@ public class EnemyShooter : MonoBehaviour
     public float fireRate = 1f;
 
     // Time until next shot
-    private float nextFireTime = 0f;
+    private float nextFireTime = 1f;
 
     // Shooting range (optional)
     public float shootingRange = 5f;

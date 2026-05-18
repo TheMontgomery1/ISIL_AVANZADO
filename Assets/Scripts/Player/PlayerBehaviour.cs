@@ -11,6 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
     public LayerMask layerGround;
     public Transform tf_GroundDetector;
     int lookDirection = 1;
+    bool canMove = true;
     //Variables para prefab del proyectil
     public GameObject prefab_Projectile;
     public Transform proyectilePosition;
@@ -30,6 +31,8 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canMove) return;
+
         Move();
         Jump();
         Shoot();
@@ -82,8 +85,13 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             rb_player.AddForce(new Vector2(0, jumping_force), ForceMode2D.Impulse);
+            anim_player.SetBool("isJumping", true);
         }
-        
+        else
+        {
+            anim_player.SetBool("isJumping", false);
+        }
+
     }
 
     //Eventos de Colisiones normales
@@ -97,13 +105,16 @@ public class PlayerBehaviour : MonoBehaviour
             game_manager.UpdateLife(life);
             LifeDetector();
         }
+
     }
     void LifeDetector()
     {
         if (life <= 0)
         {
+            canMove = false;
+            anim_player.SetBool("onMove", false);
+            anim_player.SetBool("isDead", true);
             rb_player.Sleep();
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
             game_manager.GameOver();
         }
     }
@@ -111,7 +122,7 @@ public class PlayerBehaviour : MonoBehaviour
     //Cuando un objeto MANTIENE la colision
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             print("Se mantiene la colisi�n");
         }
@@ -120,7 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
     //Cuando un objeto FINALIZA la colision
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             print("Se termin� la colisi�n");
         }
