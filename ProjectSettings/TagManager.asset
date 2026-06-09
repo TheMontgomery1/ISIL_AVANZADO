@@ -10,6 +10,7 @@ TagManager:
   - Recollectable
   - Coin
   - Hazard
+  - Player_sword
   layers:
   - Default
   - TransparentFX

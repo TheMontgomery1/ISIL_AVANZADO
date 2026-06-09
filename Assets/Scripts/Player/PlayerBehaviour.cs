@@ -10,98 +10,144 @@ public class PlayerBehaviour : MonoBehaviour
     public float speed, jumping_force;
     public LayerMask layerGround;
     public Transform tf_GroundDetector;
+    private bool getDamage;
+    public float rebote_force;
+    //private bool atack;
+
     int lookDirection = 1;
+    //private SpriteRenderer sr;
+
+    public bool isAlive = true;
     bool canMove = true;
-    //Variables para prefab del proyectil
-    public GameObject prefab_Projectile;
-    public Transform proyectilePosition;
+    bool onGround;
+
     //Variables para las animaciones
     Animator anim_player;
     //Variables de scripts externos
     public GameManager game_manager;
     //Variables de salud
     float life = 100;
+
     // Start is called before the first frame update
     void Start()
     {
         rb_player = GetComponent<Rigidbody2D>();
         anim_player = GetComponent<Animator>();
+        //sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive) return;
+        anim_player.SetBool("isDamaged", getDamage);
+
+        onGround = Physics2D.Linecast(transform.position, tf_GroundDetector.position, layerGround);
+        anim_player.SetBool("isJumping", !onGround);
+
         if (!canMove) return;
 
         Move();
         Jump();
-        Shoot();
+        Atack();
+
     }
 
-    void Shoot()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            GameObject pj =  Instantiate(prefab_Projectile, proyectilePosition.position, transform.rotation);
-            pj.GetComponent<ProjectileBehaviour>().SetProjectileDirection(lookDirection);
-            GetComponent<SFXPlayer>().PlayArrowShoot();
-        }
-        
-    }
-
+  
     void Move()
     {
         //Izquierda: -1    0     1 Derecha
         float axisH = Input.GetAxis("Horizontal");
         rb_player.linearVelocity = new Vector2(axisH * speed,rb_player.linearVelocity.y);
+        anim_player.SetBool("onMove", Mathf.Abs (axisH) > 0.01f && onGround);
         SetLookDirection(axisH);
+
+        void SetLookDirection(float axisH)
+        {
+            if (axisH > 0)
+            {
+                transform.localScale = new Vector3(4, 4, 1);
+            }
+            else if (axisH < 0)
+            {
+                transform.localScale = new Vector3(-4, 4, 1);
+            }
+
+        }
     }
-
-    void SetLookDirection(float axisHorizontal)
-    {
-        if (axisHorizontal > 0)
-        {
-            lookDirection = 1;
-            GetComponent<SpriteRenderer>().flipX = false;
-            anim_player.SetBool("onMove", true);
-        }
-        else if (axisHorizontal < 0)
-        {
-            lookDirection = -1;
-            GetComponent<SpriteRenderer>().flipX = true;
-            anim_player.SetBool("onMove", true);
-        }
-        else
-        {
-            anim_player.SetBool("onMove", false);
-        }
-
-    }
-
+    
 
     void Jump()
     {
-        bool onGround = Physics2D.Linecast(transform.position, tf_GroundDetector.position, layerGround);
+        
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
             rb_player.AddForce(new Vector2(0, jumping_force), ForceMode2D.Impulse);
-            anim_player.SetBool("isJumping", true);
-        }
-        else
-        {
-            anim_player.SetBool("isJumping", false);
         }
 
     }
 
-    //Eventos de Colisiones normales
+    public void take_damage(Vector2 direction, int damageAmount)
+    { 
+        if(!getDamage)
+        {
+            canMove = false;
+            getDamage = true;
+            life -= damageAmount;
+            game_manager.UpdateLife(life);
+            if (life<=0)
+            {
+                isAlive = false;
+                canMove = false;
+                rb_player.linearVelocity = Vector2.zero;
+                anim_player.SetBool("onMove", false);
+                anim_player.SetBool("isDead", true);
+            }
+            else
+            {
+                rb_player.linearVelocity = new Vector2(0, rb_player.linearVelocity.y);
+                Vector2 rebote = new Vector2(transform.position.x - direction.x, 1).normalized;
+                rb_player.AddForce(rebote * rebote_force, ForceMode2D.Impulse);
+            }
+                
+        }
+    }
+
+    public void RecoverFromDamage()
+    {
+        getDamage = false;
+        canMove = true;
+        rb_player.linearVelocity = Vector2.zero;
+    }
+
+
+    void Atack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canMove && onGround)
+        {
+            anim_player.SetBool("onMove", false);
+            canMove = false;
+            rb_player.linearVelocity = new Vector2(0, rb_player.linearVelocity.y);
+            anim_player.SetTrigger("isAtacking");
+        }
+    }
+
+    public void NotAtacking()
+    {
+        canMove = true;
+    }
+
+
+
+
+
 
     //Cuando un objeto INICIA la colision
-    private void OnCollisionEnter2D(Collision2D collision)
+   /* private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            life -= 25;
+            life -= 10;
             game_manager.UpdateLife(life);
             LifeDetector();
         }
@@ -117,7 +163,11 @@ public class PlayerBehaviour : MonoBehaviour
             rb_player.Sleep();
             game_manager.GameOver();
         }
-    }
+    }*/
+
+
+
+
 
     //Cuando un objeto MANTIENE la colision
     private void OnCollisionStay2D(Collision2D collision)

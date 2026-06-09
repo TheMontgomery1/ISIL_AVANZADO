@@ -1,7 +1,25 @@
 fileFormatVersion: 2
-guid: 111d331da59512940ab23fb3855add15
+guid: 0221803b1bdf15a419799ec65851dadf
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7500690451134026123
+    second: Take Hit_0
+  - first:
+      213: -889859373511162655
+    second: Take Hit_1
+  - first:
+      213: -3088938797480143695
+    second: Take Hit_2
+  - first:
+      213: -9206091644520726168
+    second: Take Hit_3
+  - first:
+      213: 6190067908364298721
+    second: Take Hit_4
+  - first:
+      213: 6935486272599230866
+    second: Take Hit_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -81,33 +99,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,89 +115,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_0
+      name: Take Hit_0
       rect:
         serializedVersion: 2
-        x: 58
-        y: 49
-        width: 33
-        height: 36
+        x: 57
+        y: 48
+        width: 35
+        height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 472e406fbe286554da17941047adb6e6
-      internalID: 1241274978
+      spriteID: 57eedf966c138e790800000000000000
+      internalID: -7500690451134026123
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_1
+      name: Take Hit_1
       rect:
         serializedVersion: 2
-        x: 208
-        y: 49
-        width: 33
-        height: 35
-      alignment: 9
-      pivot: {x: 0.5, y: 0.515}
+        x: 207
+        y: 48
+        width: 35
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f7b07e820ebfdc24586a15b10656a6d7
-      internalID: 1098185514
+      spriteID: 1e4c0dd4d9596a3f0800000000000000
+      internalID: -889859373511162655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_2
+      name: Take Hit_2
       rect:
         serializedVersion: 2
-        x: 358
-        y: 49
-        width: 33
-        height: 34
-      alignment: 9
-      pivot: {x: 0.5, y: 0.53}
+        x: 353
+        y: 65
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 95468e718d250134ebe291db0614cbf8
-      internalID: -836323397
+      spriteID: 1b416439782e125d0800000000000000
+      internalID: -3088938797480143695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_3
+      name: Take Hit_3
       rect:
         serializedVersion: 2
-        x: 508
-        y: 49
-        width: 33
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.563}
+        x: 357
+        y: 48
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8e7d6076bbdbbb742993a20b3610b149
-      internalID: 1149447394
+      spriteID: 86186aedc646d3080800000000000000
+      internalID: -9206091644520726168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Take Hit_4
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 64
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e9699d57f987e550800000000000000
+      internalID: 6190067908364298721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Take Hit_5
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 48
+        width: 37
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29900e6e40ccf3060800000000000000
+      internalID: 6935486272599230866
       vertices: []
       indices: 
       edges: []
@@ -214,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -224,10 +260,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Idle_0: 1241274978
-      Idle_1: 1098185514
-      Idle_2: -836323397
-      Idle_3: 1149447394
+      Take Hit_0: -7500690451134026123
+      Take Hit_1: -889859373511162655
+      Take Hit_2: -3088938797480143695
+      Take Hit_3: -9206091644520726168
+      Take Hit_4: 6190067908364298721
+      Take Hit_5: 6935486272599230866
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
