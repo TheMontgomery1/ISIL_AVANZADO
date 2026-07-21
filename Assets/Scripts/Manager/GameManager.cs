@@ -6,6 +6,17 @@ public class GameManager : MonoBehaviour
 {
     int coinCounter;
     HUD_UI hud_ui;
+
+    public GameObject endGameMenu;
+    public bool endGame = false;
+    
+    public GameObject endGameMetaMenu;
+    public bool endMeta = false;
+
+
+    public GameObject playerHud;
+    public bool HUDActive = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,5 +58,23 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.Save();
             print("Lograste un nuevo record. Ahora tu record es "+coinCounter);
         }
+
+        endGameMenu.SetActive(true);
+        endGame = true;
+
+        playerHud.SetActive(false);
+        HUDActive = false;
     }
+
+    public void EndDemo()
+    {
+        endGameMetaMenu.SetActive(true);
+        endMeta = true;
+
+
+        playerHud.SetActive(false);
+        HUDActive = false;
+    }
+
+
 }

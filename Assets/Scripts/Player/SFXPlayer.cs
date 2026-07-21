@@ -27,10 +27,29 @@ public class SFXPlayer : MonoBehaviour
         ChangeAudioClip(listAudioClip[0]);
     }
 
-    public void PlayArrowShoot()
+    public void PlayPlayerJump()
     {
         ChangeAudioClip(listAudioClip[1]);
     }
+
+
+    public void PlayPlayerRun()
+    {
+        ChangeAudioClip(listAudioClip[2]);
+    }
+    public void PlayPlayerHit()
+    {
+        ChangeAudioClip(listAudioClip[3]);
+    }
+    public void PlayPlayerDeath()
+    {
+        ChangeAudioClip(listAudioClip[4]);
+    }
+    public void PlayPlayerAtack()
+    {
+        ChangeAudioClip(listAudioClip[5]);
+    }
+
 
     // Update is called once per frame
     void Update()

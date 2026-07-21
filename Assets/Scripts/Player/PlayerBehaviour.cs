@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -82,6 +83,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
+            GetComponent<SFXPlayer>().PlayPlayerJump();
             rb_player.AddForce(new Vector2(0, jumping_force), ForceMode2D.Impulse);
         }
 
@@ -100,14 +102,17 @@ public class PlayerBehaviour : MonoBehaviour
                 isAlive = false;
                 canMove = false;
                 rb_player.linearVelocity = Vector2.zero;
+                GetComponent<SFXPlayer>().PlayPlayerDeath();
                 anim_player.SetBool("onMove", false);
                 anim_player.SetBool("isDead", true);
+                game_manager.GameOver();
             }
             else
             {
                 rb_player.linearVelocity = new Vector2(0, rb_player.linearVelocity.y);
                 Vector2 rebote = new Vector2(transform.position.x - direction.x, 1).normalized;
                 rb_player.AddForce(rebote * rebote_force, ForceMode2D.Impulse);
+                GetComponent<SFXPlayer>().PlayPlayerHit();
             }
                 
         }
@@ -128,6 +133,7 @@ public class PlayerBehaviour : MonoBehaviour
             anim_player.SetBool("onMove", false);
             canMove = false;
             rb_player.linearVelocity = new Vector2(0, rb_player.linearVelocity.y);
+            GetComponent<SFXPlayer>().PlayPlayerAtack();
             anim_player.SetTrigger("isAtacking");
         }
     }
@@ -137,33 +143,30 @@ public class PlayerBehaviour : MonoBehaviour
         canMove = true;
     }
 
-
-
-
-
+    
 
     //Cuando un objeto INICIA la colision
-   /* private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            life -= 10;
-            game_manager.UpdateLife(life);
-            LifeDetector();
-        }
+    /* private void OnCollisionEnter2D(Collision2D collision)
+     {
+         if (collision.gameObject.tag == "Enemy")
+         {
+             life -= 10;
+             game_manager.UpdateLife(life);
+             LifeDetector();
+         }
 
-    }
-    void LifeDetector()
-    {
-        if (life <= 0)
-        {
-            canMove = false;
-            anim_player.SetBool("onMove", false);
-            anim_player.SetBool("isDead", true);
-            rb_player.Sleep();
-            game_manager.GameOver();
-        }
-    }*/
+     }
+     void LifeDetector()
+     {
+         if (life <= 0)
+         {
+             canMove = false;
+             anim_player.SetBool("onMove", false);
+             anim_player.SetBool("isDead", true);
+             rb_player.Sleep();
+             game_manager.GameOver();
+         }
+     }*/
 
 
 
@@ -199,9 +202,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
 
-        if (collision.gameObject.tag == "Castle")
+        if (collision.gameObject.tag == "Finish")
         {
-            print("Llegaste a la meta");
+            canMove = false;
+            rb_player.linearVelocity = Vector2.zero;
+            game_manager.EndDemo();
         }
     }
 }
